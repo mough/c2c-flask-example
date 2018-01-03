@@ -3,52 +3,17 @@
 
 from flask import Flask, redirect, render_template, request, url_for
 from sqlalchemy import create_engine
+import json
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
 
-# SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-#     username="mslavin",
-#     password="iamnotspam",
-#     hostname="mslavin.mysql.pythonanywhere-services.com",
-#     databasename="mslavin$MyData")
-
-# SQLALCHEMY_BINDS = {
-#     # comments: "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-#     # username="mslavin",
-#     # password="iamnotspam",
-#     # hostname="mslavin.mysql.pythonanywhere-services.com",
-#     # databasename="mslavin$comments")
-
-#     recipe_data: "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-#     username="mslavin",
-#     password="iamnotspam",
-#     hostname="mslavin.mysql.pythonanywhere-services.com",
-#     databasename="mslavin$MyData")
-#     }
-# app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
-# app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
-# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-# db = SQLAlchemy(app)
-
-# class Comment(db.Model):
-#     __bind_key__ = "comments"
-#     id = db.Column(db.Integer, primary_key=True)
-#     content = db.Column(db.String(4096))
-
-# class Recipes(db.Model):
-#     __bind_key__ = "recipes"
-#     id = db.Column(db.Integer, primary_key=True)
-#     recipe_name = db.Column(db.String(100))
-#     recipe_link = db.Column(db.String(100))
-
-
 recipe_data = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
-    username="mslavin",
-    password="iamnotspam",
-    hostname="mslavin.mysql.pythonanywhere-services.com",
-    databasename="mslavin$MyData")
+    username="c2c_login",
+    password="38Ua2ZrCuXws",
+    hostname="c2c-dev-db.coos5kthp77n.us-west-2.rds.amazonaws.com",
+    databasename="flask_app")
 
 engine = create_engine(recipe_data, convert_unicode=True)
 comments = []
@@ -56,26 +21,11 @@ results = []
 
 @app.route('/', methods=["GET"])
 def index():
-    if request.method == "GET":
-        results = engine.execute('select * from RecipeData;')
-        return render_template("main_page.html", results=results)
-        #return render_template("main_page.html", comments=Comment.query.all(), results=results)
-
-# @app.route('/add_comment/', methods=['POST'])
-# def add_comment():
-#     comment = Comment(content=request.form["comment_text"])
-#     db.session.add(comment)
-#     db.session.commit()
-#     return redirect(url_for('index'))
-
-@app.route('/get_recipes/', methods=['POST'])
+    return render_template("main_page.html")
+        
+@app.route('/recipes/', methods=["GET"])
 def get_recipes():
-    zip_code = request.form["zip_code"]
-    cuisine_pref = request.form["cuisine_pref"]
-    return "zip_code: %s  cuisine_pref: %s" % (zip_code, cuisine_pref)
-    #return redirect(url_for('index'))
-
-
-@app.route('/bananas')
-def hello_bananas():
-    return 'Hello from Flask! Also, bananas!'
+    zip_code = request.args.get["zip_code"]
+    cuisine_pref = request.args.get["cuisine_pref"]
+    results = engine.execute('select * from RecipeData where zip_code = %s OR cuisine_pref = %s;'.format(zip_code, cuisine_pref))
+    return json.dumps(results)
