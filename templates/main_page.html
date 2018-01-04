@@ -3,6 +3,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="/static/css/main_page.css">
         <script src="/static/js/home.js"></script>
@@ -28,27 +29,25 @@
       <div  style="text-align:left">Enter your Austin area zip code and food type preference and </div>
       <div  style="text-align:left">we'll give you a fun list of recommendations!</div>
         <br>
-        <form role="form" method='GET' id="email-newsletter-form" action='/recipes'>
+        <form role="form">
             <div class="form-group">
-                <label for="titleInput">Recipe Title</label>
-                <input type="text" class="form-control" id="titleInput"  placeholder="Search by Title"/>
+                <label for="title">Recipe Title</label>
+                <input type="text" class="form-control" id="name"  placeholder="Search by Name"/>
             </div>
             <div class="form-group">
-                <label for="urlInput">Recipe URL</label>
-                <input type="text" class="form-control" id="urlInput" placeholder="Search by URL"/>
+                <label for="url">Recipe URL</label>
+                <input type="text" class="form-control" id="url" placeholder="Search by URL"/>
             </div>
             <div class="form-group">
-                <label for="categoryInput">Recipe Category</label>
-                <input type="text" class="form-control" id="categoryInput" placeholder="Search by Category"/>
+                <label for="category">Recipe Category</label>
+                <input type="text" class="form-control" id="category" placeholder="Search by Category"/>
             </div>
-            <button type="submit" class="btn btn-primary" style="margin-top: 20px">Submit</button>
+            <button id="search-submit" type="submit" class="btn btn-primary" style="margin-top: 20px">Submit</button>
         </form>
         <br>
     </div>
-    <div id="search-results" class="container">
+    <div id="searchResults" class="container">
         <h2>Search Results:</h2>
-        <div class="row">
-        </div>
     </div>
     </body>
 </html>
