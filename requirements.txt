@@ -1,0 +1,17 @@
+Flask
+Flask-Admin
+Flask-Babel
+Flask-Bcrypt
+Flask-Bootstrap
+Flask-HTTPAuth
+Flask-Login
+Flask-Mail
+Flask-OpenID
+Flask-RESTful
+Flask-Script
+Flask-SQLAlchemy
+Flask-WhooshAlchemy
+Flask-WTF
+jinja
+SQLAlchemy
+mysql-connector-python-rf

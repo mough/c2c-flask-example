@@ -1,2 +1,6 @@
 *.pyc
 __pycache__
+c2c-env/*
+include/*
+.Python
+pip-selfcheck.json
